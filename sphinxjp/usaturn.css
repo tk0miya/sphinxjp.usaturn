@@ -1,0 +1,46 @@
+.usaturn > .icon {
+    display: table-cell;
+    vertical-align: top;
+    width: 64px;
+    height: 64px;
+    background-image: url("https://pbs.twimg.com/profile_images/1365715199/md_400x400.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding-right: 18px;
+}
+
+.usaturn > .message {
+    display: table-cell;
+    vertical-align: top;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 5px;
+    position: relative;
+    padding: 12px 12px 12px 12px;
+}
+
+.usaturn > .message:before {
+    border: 10px solid transparent;
+    border-right-color: #fff;
+    border-left-width: 0;
+    left: -9px;
+    content: "";
+    display: block;
+    top: 8px;
+    position: absolute;
+    width: 0;
+    z-index: 1;
+    clear: both;
+}
+
+.usaturn > .message:after {
+    border: 10px solid transparent;
+    border-right-color: #000;
+    border-left-width: 0;
+    left: -10px;
+    content: "";
+    display: block;
+    top: 8px;
+    position: absolute;
+    width: 0;
+}

@@ -1,0 +1,8 @@
+.pyc
+.swp
+.egg-info
+^.coverage
+^.tox
+^bin/
+^_build/
+^dist/
