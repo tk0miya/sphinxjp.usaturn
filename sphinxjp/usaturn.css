@@ -1,12 +1,14 @@
 .usaturn > .icon {
     display: table-cell;
     vertical-align: top;
-    width: 64px;
-    height: 64px;
-    background-image: url("https://pbs.twimg.com/profile_images/1365715199/md_400x400.png");
-    background-size: contain;
-    background-repeat: no-repeat;
+    width: 96px;
+    height: 96px;
     padding-right: 18px;
+}
+
+.usaturn > .icon > .name {
+    font-size: small;
+    text-align: center;
 }
 
 .usaturn > .message {

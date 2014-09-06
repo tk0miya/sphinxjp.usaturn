@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 from docutils import nodes
 from docutils.parsers.rst.directives.admonitions import BaseAdmonition
@@ -7,8 +9,16 @@ USATURN_CSS = 'usaturn.css'
 
 
 def html_visit_usaturn(self, node):
+    url = "https://pbs.twimg.com/profile_images/1365715199/md_400x400.png"
+
     self.body.append(self.starttag(node, 'div', CLASS='admonition usaturn'))
-    self.body.append(self.starttag(node, 'div', CLASS='icon', suffix='</div>\n'))
+    self.body.append(self.starttag(node, 'div', CLASS='icon'))
+    self.body.append(self.starttag(node, 'img', src=url, empty=True))
+    self.body.append('<br />')
+    self.body.append(self.starttag(node, 'div', CLASS='name'))
+    self.body.append(u'うさたーん')
+    self.body.append('</div>\n')
+    self.body.append('</div>\n')
     self.body.append(self.starttag(node, 'div', CLASS='message'))
 
 
@@ -41,9 +51,6 @@ def on_build_finished(app, exception):
 
 
 def setup(app):
-    from sphinx.locale import admonitionlabels
-    admonitionlabels['usaturn'] = ''
-
     app.add_node(usaturn,
                  html=(html_visit_usaturn, html_depart_usaturn))
     app.add_directive('usaturn', UsaturnAdmonition)
