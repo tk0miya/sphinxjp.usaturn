@@ -16,7 +16,7 @@ classifiers = [
 
 setup(
     name='sphinxjp.usaturn',
-    version='0.1.0',
+    version='0.2.0',
     description='a sphinx extension to add new admonition named `usaturn`',
     long_description=open("README.rst").read(),
     classifiers=classifiers,
