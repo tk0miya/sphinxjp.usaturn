@@ -1,38 +1,34 @@
 # -*- coding: utf-8 -*-
 
 import os
+from types import MethodType
 from docutils import nodes
 from docutils.parsers.rst.directives.admonitions import BaseAdmonition
+from sphinx.application import Sphinx
 from sphinx.util.osutil import copyfile
 
 USATURN_CSS = 'usaturn.css'
 
 
-def html_visit_usaturn(self, node):
-    url = "https://pbs.twimg.com/profile_images/1365715199/md_400x400.png"
-
-    self.body.append(self.starttag(node, 'div', CLASS='admonition usaturn'))
+def html_visit_character_admonition(self, node):
+    self.body.append(self.starttag(node, 'div', CLASS='admonition character-admonition'))
     self.body.append(self.starttag(node, 'div', CLASS='icon'))
-    self.body.append(self.starttag(node, 'img', src=url, empty=True))
+    self.body.append(self.starttag(node, 'img', src=node['image_url'], empty=True))
     self.body.append('<br />')
     self.body.append(self.starttag(node, 'div', CLASS='name'))
-    self.body.append(u'うさたーん')
+    self.body.append(node.get('name') or '')
     self.body.append('</div>\n')
     self.body.append('</div>\n')
     self.body.append(self.starttag(node, 'div', CLASS='message'))
 
 
-def html_depart_usaturn(self, node):
+def html_depart_character_admonition(self, node):
     self.body.append('</div>\n')
     self.body.append('</div>\n')
 
 
-class usaturn(nodes.Admonition, nodes.Element):
+class character_admonition(nodes.Admonition, nodes.Element):
     pass
-
-
-class UsaturnAdmonition(BaseAdmonition):
-    node_class = usaturn
 
 
 def on_builder_inited(app):
@@ -50,9 +46,27 @@ def on_build_finished(app, exception):
     app.info('done')
 
 
+def add_character_admonition(self, name, image_url, label=''):
+    class CharacterAdmonition(BaseAdmonition):
+        node_class = character_admonition
+
+        def run(self):
+            ret = super(CharacterAdmonition, self).run()
+            ret[0]['image_url'] = image_url
+            ret[0]['name'] = label
+            return ret
+
+    self.add_directive(name, CharacterAdmonition)
+
+
 def setup(app):
-    app.add_node(usaturn,
-                 html=(html_visit_usaturn, html_depart_usaturn))
-    app.add_directive('usaturn', UsaturnAdmonition)
+    app.add_character_admonition = MethodType(add_character_admonition, app, Sphinx)
+
+    app.add_node(character_admonition,
+                 html=(html_visit_character_admonition, html_depart_character_admonition))
     app.connect('builder-inited', on_builder_inited)
     app.connect('build-finished', on_build_finished)
+
+    app.add_character_admonition('usaturn',
+                                 'https://pbs.twimg.com/profile_images/1365715199/md_400x400.png',
+                                 u'うさたーん')

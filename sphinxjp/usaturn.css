@@ -1,4 +1,4 @@
-.usaturn > .icon {
+.character-admonition > .icon {
     display: table-cell;
     vertical-align: top;
     width: 96px;
@@ -6,12 +6,12 @@
     padding-right: 18px;
 }
 
-.usaturn > .icon > .name {
+.character-admonition > .icon > .name {
     font-size: small;
     text-align: center;
 }
 
-.usaturn > .message {
+.character-admonition > .message {
     display: table-cell;
     vertical-align: top;
     background-color: #fff;
@@ -21,7 +21,7 @@
     padding: 12px 12px 12px 12px;
 }
 
-.usaturn > .message:before {
+.character-admonition > .message:before {
     border: 10px solid transparent;
     border-right-color: #fff;
     border-left-width: 0;
@@ -35,7 +35,7 @@
     clear: both;
 }
 
-.usaturn > .message:after {
+.character-admonition > .message:after {
     border: 10px solid transparent;
     border-right-color: #000;
     border-left-width: 0;
