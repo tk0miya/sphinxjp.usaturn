@@ -30,7 +30,7 @@ And configure your `conf.py`::
 Directive
 =========
 
-.. describe:: .. usaturn::
+**.. usaturn::**
 
    This directive insert a `usaturn` admonition into the document.
 
