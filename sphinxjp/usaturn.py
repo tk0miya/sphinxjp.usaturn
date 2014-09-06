@@ -3,6 +3,7 @@
 import os
 from types import MethodType
 from docutils import nodes
+from docutils.parsers.rst import directives
 from docutils.parsers.rst.directives.admonitions import BaseAdmonition
 from sphinx.application import Sphinx
 from sphinx.util.osutil import copyfile
@@ -10,8 +11,7 @@ from sphinx.util.osutil import copyfile
 USATURN_CSS = 'usaturn.css'
 
 
-def html_visit_character_admonition(self, node):
-    self.body.append(self.starttag(node, 'div', CLASS='admonition character-admonition'))
+def html_visit_character_icon(self, node):
     self.body.append(self.starttag(node, 'div', CLASS='icon'))
     self.body.append(self.starttag(node, 'img', src=node['image_url'], empty=True))
     self.body.append('<br />')
@@ -19,11 +19,23 @@ def html_visit_character_admonition(self, node):
     self.body.append(node.get('name') or '')
     self.body.append('</div>\n')
     self.body.append('</div>\n')
+
+
+def html_visit_character_admonition(self, node):
+    self.body.append(self.starttag(node, 'div', CLASS='admonition character-admonition'))
+    if node['align'] != 'right':
+        html_visit_character_icon(self, node)
+
+    self.body.append(self.starttag(node, 'div', CLASS='message-box ' + node['align']))
     self.body.append(self.starttag(node, 'div', CLASS='message'))
 
 
 def html_depart_character_admonition(self, node):
     self.body.append('</div>\n')
+    self.body.append('</div>\n')
+    if node['align'] == 'right':
+        html_visit_character_icon(self, node)
+
     self.body.append('</div>\n')
 
 
@@ -47,13 +59,20 @@ def on_build_finished(app, exception):
 
 
 def add_character_admonition(self, name, image_url, label=''):
+    def align(argument):
+        return directives.choice(argument, ('left', 'right'))
+
     class CharacterAdmonition(BaseAdmonition):
         node_class = character_admonition
+        option_spec = {'class': directives.class_option,
+                       'name': directives.unchanged,
+                       'align': align}
 
         def run(self):
             ret = super(CharacterAdmonition, self).run()
             ret[0]['image_url'] = image_url
             ret[0]['name'] = label
+            ret[0]['align'] = self.options.get('align', 'left')
             return ret
 
     self.add_directive(name, CharacterAdmonition)

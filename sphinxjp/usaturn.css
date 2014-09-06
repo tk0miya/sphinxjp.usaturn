@@ -3,7 +3,6 @@
     vertical-align: top;
     width: 96px;
     height: 96px;
-    padding-right: 18px;
 }
 
 .character-admonition > .icon > .name {
@@ -11,7 +10,24 @@
     text-align: center;
 }
 
-.character-admonition > .message {
+.character-admonition > .message-box {
+    position: relative;
+    display: table-cell;
+    vertical-align: top;
+    width: 400px
+}
+
+.character-admonition > .message-box.left {
+    padding-left: 18px;
+    padding-right: 96px;
+}
+
+.character-admonition > .message-box.right {
+    padding-left: 96px;
+    padding-right: 18px;
+}
+
+.character-admonition > .message-box > .message {
     display: table-cell;
     vertical-align: top;
     background-color: #fff;
@@ -19,30 +35,49 @@
     border-radius: 5px;
     position: relative;
     padding: 12px 12px 12px 12px;
+    width: 400px;
 }
 
-.character-admonition > .message:before {
+.character-admonition > .message-box > .message:before {
     border: 10px solid transparent;
+    top: 8px;
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0;
+}
+
+.character-admonition > .message-box > .message:after {
+    border: 10px solid transparent;
+    top: 8px;
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0;
+}
+
+.character-admonition > .message-box.left > .message:before {
     border-right-color: #fff;
     border-left-width: 0;
     left: -9px;
-    content: "";
-    display: block;
-    top: 8px;
-    position: absolute;
-    width: 0;
     z-index: 1;
-    clear: both;
 }
 
-.character-admonition > .message:after {
-    border: 10px solid transparent;
+.character-admonition > .message-box.right > .message:before {
+    border-left-color: #fff;
+    border-right-width: 0;
+    right: -9px;
+    z-index: 1;
+}
+
+.character-admonition > .message-box.left > .message:after {
     border-right-color: #000;
     border-left-width: 0;
     left: -10px;
-    content: "";
-    display: block;
-    top: 8px;
-    position: absolute;
-    width: 0;
+}
+
+.character-admonition > .message-box.right > .message:after {
+    border-left-color: #000;
+    border-right-width: 0;
+    right: -10px;
 }
