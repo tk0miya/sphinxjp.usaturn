@@ -9,6 +9,8 @@ Example::
 
   .. usaturn:: Hello world!
 
+  .. usaturn:: Hello world!
+     :align: right
 
 
 Who's usaturn?
@@ -59,7 +61,45 @@ Directive
 
      .. usaturn:: Hello world!
 
+     .. usaturn:: Hello world!
+        :align: right
+
    .. usaturn:: Hello world!
+
+   .. usaturn:: Hello world!
+      :align: right
+
+
+Internal API
+=============
+
+`sphinxjp.usaturn` adds `add_character_admonition()` as sphinx API.
+
+.. describe:: add_character_admonition(character_name, image_url, label)
+
+   Define new admonition directive.
+
+   Example::
+
+     def setup(app):
+         app.add_character_admonition('debian',
+                                      'https://www.debian.org/logos/openlogo-nd-100.jpg',
+                                      'Debian')
+
+   After that, `sphinxjp.usaturn` defines `debian` admonition directive.
+   It has 'Debian' label and specified logo as its image.
+
+   Example::
+
+     .. usaturn:: Hello world!
+
+     .. debian:: Hello debian world!
+        :align: right
+
+   .. usaturn:: Hello world!
+
+   .. debian:: Hello debian world!
+      :align: right
 
 
 Repository

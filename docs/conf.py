@@ -11,3 +11,9 @@ master_doc = 'index'
 
 project = u'sphinxjp.usaturn quick reference'
 copyright = u'2014, Takeshi KOMIYA'
+
+
+def setup(app):
+    app.add_character_admonition('debian',
+                                 'https://www.debian.org/logos/openlogo-nd-100.jpg',
+                                 'Debian')
